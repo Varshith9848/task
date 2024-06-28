@@ -1,0 +1,43 @@
+document.addEventListener("DOMContentLoaded", function() {
+    const form = document.getElementById('contactForm');
+    const errorMessage = document.getElementById('error-message');
+
+    form.addEventListener('submit', function(event) {
+        event.preventDefault();
+        let isValid = true;
+        let errorMessages = [];
+
+        // Validate name
+        const name = document.getElementById('name').value;
+        if (name.trim() === '') {
+            isValid = false;
+            errorMessages.push("Name is required.");
+        }
+
+        // Validate email
+        const email = document.getElementById('email').value;
+        const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+        if (!emailPattern.test(email)) {
+            isValid = false;
+            errorMessages.push("Please enter a valid email address.");
+        }
+
+        // Display error messages or submit form
+        if (!isValid) {
+            errorMessage.innerHTML = errorMessages.join('<br>');
+        } else {
+            errorMessage.innerHTML = '';
+            alert("Form submitted successfully!");
+            form.reset();
+        }
+    });
+
+    // Interactive menu
+    const menuItems = document.querySelectorAll('.menu li a');
+    menuItems.forEach(function(item) {
+        item.addEventListener('click', function(event) {
+            menuItems.forEach(function(el) { el.classList.remove('active'); });
+            event.currentTarget.classList.add('active');
+        });
+    });
+});
